@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.cafe.dao.MyBatisDAO">
+
+	<insert id="makeNewRoom" parameterType="rm_vo">
+		insert into room (roomidx, roomname, roomhost, roompassword, roomtheme) values (room_roomidx_seq.nextval, #{roomName}, #{roomHost},#{roomPassword}, #{roomTheme})
+	</insert>
+	
+	<select id="getRoomInfo" parameterType="String" resultType="rm_vo">
+		select * from room where roomHost = #{roomHost}
+	</select>
+	
+	<select id="roomExist" parameterType="String" resultType="int">
+		select count(*) from room where roomhost = #{id}
+	</select>
+	
+	<delete id="deleteExistance" parameterType="String">
+		delete from room where roomhost = #{id}
+	</delete>
+	
+	<select id="getRooms" parameterType="String" resultType="rm_vo">
+		<![CDATA[
+	 		select * from(select * from room where roomhost != #{roomHost} order by roomidx desc) where rownum <= 10
+	 	]]>	
+	</select>
+	
+	<select id="selectRoomCount" resultType="int">
+		select count(*) from room
+	</select>
+	
+	 <!-- 1페이지 분량의 상품 목록을 얻어온다. -->
+	 <select id="getRoomList" parameterType="java.util.HashMap" resultType="rm_vo">
+	 	<![CDATA[
+			select * from (
+				select rownum rnum, TT.* from (
+					select * from room order by roomidx desc 
+				) TT where rownum <= #{endNo}
+			) where rnum >= #{startNo} 		
+		]]>
+	 </select>	
+	
+</mapper>

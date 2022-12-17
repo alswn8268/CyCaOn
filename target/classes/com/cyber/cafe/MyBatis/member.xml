@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.cafe.dao.MyBatisDAO">
+
+	<insert id="joinmember" parameterType="mb_vo">
+		insert into member (id, password, nickname) values (#{id}, #{password}, #{nickname})
+	</insert>
+
+	<select id="getId" parameterType="mb_vo" resultType="mb_vo">
+		select * from member where id = #{id}
+	</select>
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- MemberVO 클래스의 bean을 만든다. -->
+	<bean id="memberVO" class="com.cyber.cafe.vo.MemberVO"/>
+	<!-- MemberList 클래스의 bean을 만든다. -->
+	<bean id="memberList" class="com.cyber.cafe.vo.MemberList"/>
+
+	<!-- RoomVO 클래스의 bean을 만든다. -->
+	<bean id="roomVO" class="com.cyber.cafe.vo.RoomVO"/>
+	<!-- RoomList 클래스의 bean을 만든다. -->
+	<bean id="roomList" class="com.cyber.cafe.vo.RoomList"/>
+
+</beans>
