@@ -91,7 +91,7 @@
 	</div>
 	
 	<div class="chat">
-		채팅창
+		<iframe src="chat" style="overflow: auto; height: 300px;"></iframe>
 	</div>
 	
 	<div class="clear"></div>

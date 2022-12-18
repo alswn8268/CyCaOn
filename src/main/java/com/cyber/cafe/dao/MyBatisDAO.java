@@ -3,6 +3,7 @@ package com.cyber.cafe.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cyber.cafe.vo.ChatVO;
 import com.cyber.cafe.vo.FriendList;
 import com.cyber.cafe.vo.FriendVO;
 import com.cyber.cafe.vo.MemberVO;
@@ -30,6 +31,9 @@ public interface MyBatisDAO {
 	String getRel(FriendVO friendVO);
 	void deleteFriend(FriendVO friendVO);
 	ArrayList<FriendVO> getFriendList(String id);
+	
+	// chat
+	void goChat(ChatVO chatVO);
 	
 	
 }

@@ -26,7 +26,7 @@ insert into member(id, password, nickname) values ('dubu',  1234, '두부');
 insert into member(id, password, nickname) values ('zz',  1234, 'zz');
 insert into member(id, password, nickname) values ('lord',  1234, '로드');
 insert into member(id, password, nickname) values ('zelda',  1234, '젤다');
-insert into member(id, password, nickname) values ('link',  1234, '젤다아니고링크');
+insert into member(id, password, nickname) values ('link',  1234, '링크');
 insert into member(id, password, nickname) values ('joshua',  1234, '조샤');
 
 insert into friend (mid, fid) values ('test', 'tt');
@@ -38,3 +38,8 @@ delete from friend where mid='member' and fid='member';
 commit;
 update friend set relation = 'd' where fid = '' or mid = '';
 
+
+select * from chat;
+delete from chat;
+drop sequence chat_chatroomidx_seq;
+create sequence chat_chatroomidx_seq;

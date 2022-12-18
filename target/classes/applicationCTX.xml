@@ -18,4 +18,7 @@
 	<!-- FriendList 클래스의 bean을 만든다. -->
 	<bean id="friendList" class="com.cyber.cafe.vo.FriendList"/>
 
+	<!-- ChatVO 클래스의 bean을 만든다. -->
+	<bean id="chatVO" class="com.cyber.cafe.vo.ChatVO"/>
+
 </beans>

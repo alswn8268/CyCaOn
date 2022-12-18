@@ -6,6 +6,7 @@
 		<typeAlias type="com.cyber.cafe.vo.MemberVO" alias="mb_vo"/>
 		<typeAlias type="com.cyber.cafe.vo.RoomVO" alias="rm_vo"/>
 		<typeAlias type="com.cyber.cafe.vo.FriendVO" alias="fr_vo"/>
+		<typeAlias type="com.cyber.cafe.vo.ChatVO" alias="ct_vo"/>
 	
 	</typeAliases>
 	

@@ -10,20 +10,20 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cyber.cafe.dao.MyBatisDAO;
+import com.cyber.cafe.vo.ChatVO;
 import com.cyber.cafe.vo.FriendList;
 import com.cyber.cafe.vo.FriendVO;
 import com.cyber.cafe.vo.MemberVO;
 import com.cyber.cafe.vo.RoomList;
 import com.cyber.cafe.vo.RoomVO;
-import com.cyber.cafe.Alert;
 
 @Controller
 public class HomeController {
@@ -170,6 +170,7 @@ public class HomeController {
 		// 채팅 내용을 얻어온다. (iframe으로 할까?)
 		
 		
+		
 		return "roomView";
 	}
 	
@@ -287,5 +288,28 @@ public class HomeController {
 		
 		
 		return "myPageView";
+	}
+	
+	@RequestMapping("chat")
+	public String chat(HttpServletRequest request, Model model) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		return "chat";
+	}	
+		
+	@ResponseBody
+	@RequestMapping("goChat")
+	public String goChat(HttpServletRequest request, Model model, ChatVO chatVO) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+
+		// 채팅 내용과 닉네임을 얻어와 Chat 테이블에 입력한다.
+		mapper.goChat(chatVO);
+		
+		
+		
+		
+		return "";
 	}
 }
