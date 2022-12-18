@@ -13,4 +13,9 @@
 	<!-- RoomList 클래스의 bean을 만든다. -->
 	<bean id="roomList" class="com.cyber.cafe.vo.RoomList"/>
 
+	<!-- FriendVO 클래스의 bean을 만든다. -->
+	<bean id="friendVO" class="com.cyber.cafe.vo.FriendVO"/>
+	<!-- FriendList 클래스의 bean을 만든다. -->
+	<bean id="friendList" class="com.cyber.cafe.vo.FriendList"/>
+
 </beans>

@@ -47,6 +47,7 @@
 	}    
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 <body>
 <jsp:useBean id="date" class="java.util.Date"/>
@@ -55,36 +56,27 @@
 	<div>
 		<c:if test="${id != null}">
 			<b>${nickname}</b>님 안녕하세요! 오늘은 ${date}입니다.
+			<br/><b>${nickname}</b> 님의 마이페이지입니다.
 			<input type="button" value="로그아웃" onclick="location.href='logout'">
 			<input type="button" value="메인" onclick="location.href='main'">
-			
 		</c:if>
 		<c:if test="${id == null}">
 			<input type="button" value="로그인" onclick="location.href='login'">
 		</c:if>
 	</div>
 </header>
-<c:set var="roomList" value="${roomList.list}"/>
+
 <div>
-	<table>
-		<thead>
-			<tr>
-				<th>방 제목</th>
-				<th>방장</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<c:forEach var="roomVO" items="${roomList}" varStatus="i">
-					<td><a href="roomView?id=${roomVO.roomHost}">${roomVO.roomName}</a><br/></td>
-					<td>${roomVO.roomHost}</td>
-					<c:if test="${i.count % 4 == 0}">
-							<tr style="border-color: transparent;"></tr>
-					</c:if>				
-				</c:forEach>
-			</tr>
-		</tbody>
-	</table>
+	오늘의 할일: 
+</div>
+
+<div>
+	친구 목록: ${friendList}
+</div>
+
+<div>
+	정보 수정
+	${memberVO}
 </div>
 
 <footer>

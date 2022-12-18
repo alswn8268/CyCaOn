@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cyber.cafe.dao.MyBatisDAO;
+import com.cyber.cafe.vo.FriendList;
+import com.cyber.cafe.vo.FriendVO;
 import com.cyber.cafe.vo.MemberVO;
 import com.cyber.cafe.vo.RoomList;
 import com.cyber.cafe.vo.RoomVO;
@@ -58,7 +60,7 @@ public class HomeController {
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
 		
 		// 입력한 아이디와 일치하는 vo를 db에서 얻어온다.
-		MemberVO dbvo = mapper.getId(memberVO);
+		MemberVO dbvo = mapper.getId(memberVO.getId());
 		if (dbvo.getPassword().trim().equals(memberVO.getPassword())) {
 			// 입력한 비밀번호와 db에서 얻어온 비밀번호가 일치할 경우 로그인 정보를 세션에 저장한다.
 			HttpSession session = request.getSession();
@@ -204,4 +206,86 @@ public class HomeController {
 		return "roomList";
 	}
 	
+	@RequestMapping("profile")
+	public String profile(HttpServletRequest request, Model model) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 전 페이지에서 프로필을 얻어올 id와 현재 로그인 중인 id를 받아온다.
+		String fid = request.getParameter("fid");
+		String mid = request.getParameter("mid");
+		
+		 // id에 해당하는 프로필을 받아온다.
+		MemberVO memberVO =  mapper.getId(fid);
+		
+		// friendVO에 해당하는 친구 상태를 얻어온다.
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+		FriendVO friendVO = ctx.getBean("friendVO", FriendVO.class);
+		friendVO.setFid(fid);
+		friendVO.setMid(mid);
+		String rel = mapper.getRel(friendVO);
+		
+		// 얻어온 프로필과 친구 상태를 뷰페이지로 넘겨준다.
+		model.addAttribute("memberVO", memberVO);
+		model.addAttribute("rel", rel);		
+		
+		return "profileView";
+	}
+	
+	@RequestMapping("makeFriend")
+	public String makeFriend(HttpServletRequest request, Model model, FriendVO friendVO, HttpServletResponse response) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 이미 같은 사람에게 친구 신청을 보낸 적 있는지 확인한다.
+		
+		// friendVO의 mid가 friendVO의 fid로 친구 신청을 보낸다.
+		mapper.friendRequest(friendVO);
+		
+		// 친구 신청을 보냈을 때 상대도 이미 나에게 친구 신청을 보냈는 지 확인한다.
+		int cr = mapper.counterRequest(friendVO);
+		if (cr > 0) {
+			// cr이 0보다 크다면 상대가 나에게 친구를 신청한 적 있다는 뜻이므로 친구 상태가 된다.
+			friendVO.setRelation("친구");
+		} else {
+			// cr이 0이라면 상대가 나에게 친구를 신청한 적이 없다는 뜻이므로 친구 신청중 상태가 된다.
+			friendVO.setRelation("친구 신청중");			
+		}
+		mapper.changeRelation(friendVO);
+		
+		Alert.alertAndClose(response, "친구 신청을 완료했습니다.");
+		return "";
+	}
+	
+	@RequestMapping("deleteFriend")
+	public String deleteFriend(HttpServletRequest request, Model model, FriendVO friendVO, HttpServletResponse response) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 친구를 삭제한다.
+		mapper.deleteFriend(friendVO);
+		
+		Alert.alertAndClose(response, "친구를 삭제했습니다.");
+		return "";		
+	}
+	
+	@RequestMapping("myPage")
+	public String myPage(HttpServletRequest request, Model model) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 내 정보를 불러와서 넘겨준다.
+		String id = request.getParameter("id");
+		MemberVO memberVO =  mapper.getId(id);		
+		model.addAttribute("memberVO", memberVO);
+		
+		// 친구 목록을 불러와서 넘겨준다.
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+		FriendList friendList = ctx.getBean("friendList", FriendList.class);
+		friendList.setList(mapper.getFriendList(id));
+		model.addAttribute("friendList", friendList);
+		
+		
+		return "myPageView";
+	}
 }

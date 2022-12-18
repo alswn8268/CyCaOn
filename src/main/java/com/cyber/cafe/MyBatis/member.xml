@@ -6,8 +6,10 @@
 		insert into member (id, password, nickname) values (#{id}, #{password}, #{nickname})
 	</insert>
 
-	<select id="getId" parameterType="mb_vo" resultType="mb_vo">
+	<select id="getId" parameterType="String" resultType="mb_vo">
 		select * from member where id = #{id}
 	</select>
+
+	
 
 </mapper>

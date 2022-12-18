@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.cafe.dao.MyBatisDAO">
+
+	<insert id="friendRequest" parameterType="fr_vo">
+		insert into friend (mid, fid) values (#{mid}, #{fid})
+	</insert>
+	
+	<select id="counterRequest" parameterType="fr_vo" resultType="int">
+		select count(*) from friend where mid = #{fid} and fid = #{mid}
+	</select>
+	
+	<update id="changeRelation" parameterType="fr_vo">
+		update friend set relation = #{relation} where mid = #{mid} and fid = #{fid} or mid = #{fid} and fid = #{mid}
+	</update>
+	
+	<select id="getRel" parameterType="fr_vo" resultType="String">
+		select relation from friend where mid = #{mid} and fid = #{fid}
+	</select>
+	
+	<delete id="deleteFriend" parameterType="fr_vo">
+		delete from friend where mid = #{mid} and fid = #{fid} or mid = #{fid} and fid = #{mid}
+	</delete>
+	
+	<select id="getFriendList" parameterType="String" resultType="fr_vo">
+		select * from friend where mid = #{mid} and relation = '친구'
+	</select>
+	
+</mapper>

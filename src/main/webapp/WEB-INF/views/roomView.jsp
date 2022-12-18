@@ -47,6 +47,7 @@
 	}    
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 <body>
 <jsp:useBean id="date" class="java.util.Date"/>
@@ -57,6 +58,7 @@
 			<b>${nickname}</b>님 안녕하세요! 오늘은 ${date}입니다.
 			<br/><b>${roomVO.roomName}</b> 방입니다.
 			<input type="button" value="로그아웃" onclick="location.href='logout'">
+			<input type="button" value="메인" onclick="location.href='main'">
 		</c:if>
 		<c:if test="${id == null}">
 			<input type="button" value="로그인" onclick="location.href='login'">
@@ -77,7 +79,7 @@
 			<c:forEach var="roomVO" items="${roomList}">
 				<tr>
 					<td><a href="roomView?id=${roomVO.roomHost}">${roomVO.roomName}</a></td>
-					<td>${roomVO.roomHost}</td>				
+					<td><input type="button" value="${roomVO.roomHost}" onclick="openProfile(this.value, '${id}')"></td>				
 				</tr>		
 			</c:forEach>
 			<tr>

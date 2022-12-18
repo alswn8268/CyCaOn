@@ -28,7 +28,7 @@
 		select count(*) from room
 	</select>
 	
-	 <!-- 1페이지 분량의 상품 목록을 얻어온다. -->
+	 <!-- 1페이지 분량의 방 목록을 얻어온다. -->
 	 <select id="getRoomList" parameterType="java.util.HashMap" resultType="rm_vo">
 	 	<![CDATA[
 			select * from (

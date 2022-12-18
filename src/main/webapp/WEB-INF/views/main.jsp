@@ -69,7 +69,7 @@
 			<input type="button" value="내 방 만들기" onclick="location.href='makeRoom'"/>&nbsp;&nbsp;&nbsp;
 			<input type="button" value="방찾기" onclick="location.href='findRoom'"/><br/>
 			<input type="button" value="상점" onclick="location.href='shop'"/>&nbsp;&nbsp;&nbsp;
-			<input type="button" value="마이페이지" onclick="location.href='myPage'"/><br/>
+			<input type="button" value="마이페이지" onclick="location.href='myPage?id=${id}'"/><br/>
 		</div>
 	</c:if>
 
