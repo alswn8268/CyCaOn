@@ -24,3 +24,8 @@ function goChat(nickname) {
 	});
 	
 }
+
+function modalClose() {
+	var modal = document.getElementById('wantFModal');
+	modal.style.display = 'none';
+}

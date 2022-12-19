@@ -26,4 +26,8 @@
 		select * from friend where mid = #{mid} and relation = '친구'
 	</select>
 	
+	<select id="whoWantsToBeFriend" parameterType="String" resultType="fr_vo">
+		select mid from friend where fid = #{id} and relation = '친구 신청중'
+	</select>
+	
 </mapper>

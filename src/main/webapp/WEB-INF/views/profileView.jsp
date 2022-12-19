@@ -30,17 +30,17 @@
 				<tr>
 					<td colspan="2" align="center">
 						<c:if test="${rel == null}">
-							<input type="button" value="친구 신청" onclick="location.href='makeFriend?fid=${memberVO.id}&mid=${id}'">
+							<input type="button" value="친구 신청" onclick="location.href='friendOK?fid=${memberVO.id}&mid=${id}&mode=1'">
 						</c:if>
 						<c:if test="${rel != null}">
-							<input type="button" value="친구 삭제" onclick="location.href='deleteFriend?fid=${memberVO.id}&mid=${id}'">
+							<input type="button" value="친구 삭제" onclick="location.href='friendOK?fid=${memberVO.id}&mid=${id}&mode=2'">
 						</c:if>
 						<input type="button" value="창 닫기" onclick="self.close()">
 					</td>			
 				</tr>
 			</table>
 	</div>
-
+<br/><br/><br/><br/><br/>
 <footer>
 
 </footer>

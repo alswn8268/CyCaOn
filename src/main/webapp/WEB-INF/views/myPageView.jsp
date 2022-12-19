@@ -65,20 +65,62 @@
 		</c:if>
 	</div>
 </header>
-
+<br/><br/><br/><br/><br/>
 <div>
 	투두 리스트: 
+	<div class="todolist">
+		<input type="checkbox"> 밥먹기
+		<input type="checkbox"> 놀기
+		<input type="checkbox"> 자기
+	</div>	
+</div>
+<br/><br/><br/><br/><br/>
+<c:set var="friendList" value="${friendList.list}"/>
+<div>
+	
+	친구 목록: <br/>
+	<c:forEach var="friendVO" items="${friendList}">
+		<button onclick="openProfile('${friendVO.fid}', '${id}')">${friendVO.fid}</button><br/>
+	</c:forEach>
+	
 </div>
 
-<div>
-	친구 목록: ${friendList}
-</div>
+
 
 <div>
+
+
 	정보 수정
-	${memberVO}
+	<table>
+		<tr>
+			<th>아이디</th>
+			<td>${memberVO.id}</td>
+		</tr>
+		<tr>
+			<th>닉네임</th>
+			<td>
+				<input type="text" value="${memberVO.nickname}">
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td>
+				<input type="text" value="${memberVO.password}">			
+			</td>
+		</tr>
+		<tr>
+			<th>가입일</th>
+			<td>${memberVO.sdate}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" onclick="" value="정보 수정">
+			</td>
+		</tr>
+	</table>
+	
 </div>
-
+<br/><br/><br/><br/><br/><br/>
 <footer>
 
 </footer>

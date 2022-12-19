@@ -45,7 +45,10 @@ public class HomeController {
 
 		// 이미 생성된 방이 있는지 확인한다.
 		
-		
+		// 현재 로그인한 사람 수를 받아서 넘겨준다.
+		model.addAttribute("userCount", new Listener().getUserCount());
+		model.addAttribute("totalCount", new Listener().getTotalCount());
+		model.addAttribute("wantF", request.getParameter("wantF"));	
 		return "main";
 	}
 	
@@ -62,6 +65,7 @@ public class HomeController {
 		// 입력한 아이디와 일치하는 vo를 db에서 얻어온다.
 		MemberVO dbvo = mapper.getId(memberVO.getId());
 		if (dbvo.getPassword().trim().equals(memberVO.getPassword())) {
+			
 			// 입력한 비밀번호와 db에서 얻어온 비밀번호가 일치할 경우 로그인 정보를 세션에 저장한다.
 			HttpSession session = request.getSession();
 			session.setAttribute("id", dbvo.getId());
@@ -69,8 +73,14 @@ public class HomeController {
 			session.setAttribute("password", dbvo.getPassword());
 			session.setAttribute("sdate", dbvo.getSdate());
 			
+			// 친구 신청중인 아이디가 있는지 확인한다. 
+			AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+			FriendList wantF = ctx.getBean("friendList", FriendList.class);
+			wantF.setList(mapper.whoWantsToBeFriend(dbvo.getId()));
+			model.addAttribute("wantF", wantF);			
+			
 			// 메인 페이지로 돌아간다.
-			Alert.alertAndGo(response, "로그인되었습니다.", "main");
+			return "redirect:main";
 		} else {
 			Alert.alertAndGo(response, "로그인에 실패했습니다.", "login");			
 		}
@@ -160,6 +170,9 @@ public class HomeController {
 		
 		// 테마를 얻어온다.
 		
+		
+		
+		
 		// 현재 방을 제외한 다른 방 목록을 얻어와서 넘겨준다.
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
 		RoomList roomList = ctx.getBean("roomList", RoomList.class);
@@ -233,41 +246,38 @@ public class HomeController {
 		return "profileView";
 	}
 	
-	@RequestMapping("makeFriend")
-	public String makeFriend(HttpServletRequest request, Model model, FriendVO friendVO, HttpServletResponse response) {
+	@RequestMapping("friendOK")
+	public String friendOK(HttpServletRequest request, Model model, FriendVO friendVO, HttpServletResponse response) {
 		// mapper를 얻어온다.
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
 		
-		// 이미 같은 사람에게 친구 신청을 보낸 적 있는지 확인한다.
-		
-		// friendVO의 mid가 friendVO의 fid로 친구 신청을 보낸다.
-		mapper.friendRequest(friendVO);
-		
-		// 친구 신청을 보냈을 때 상대도 이미 나에게 친구 신청을 보냈는 지 확인한다.
-		int cr = mapper.counterRequest(friendVO);
-		if (cr > 0) {
-			// cr이 0보다 크다면 상대가 나에게 친구를 신청한 적 있다는 뜻이므로 친구 상태가 된다.
-			friendVO.setRelation("친구");
-		} else {
-			// cr이 0이라면 상대가 나에게 친구를 신청한 적이 없다는 뜻이므로 친구 신청중 상태가 된다.
-			friendVO.setRelation("친구 신청중");			
+		int mode = Integer.parseInt(request.getParameter("mode"));
+		if (mode == 1) {
+			
+			// 이미 같은 사람에게 친구 신청을 보낸 적 있는지 확인한다.
+			
+			// friendVO의 mid가 friendVO의 fid로 친구 신청을 보낸다.
+			mapper.friendRequest(friendVO);
+			
+			// 친구 신청을 보냈을 때 상대도 이미 나에게 친구 신청을 보냈는 지 확인한다.
+			int cr = mapper.counterRequest(friendVO);
+			if (cr > 0) {
+				// cr이 0보다 크다면 상대가 나에게 친구를 신청한 적 있다는 뜻이므로 친구 상태가 된다.
+				friendVO.setRelation("친구");
+			} else {
+				// cr이 0이라면 상대가 나에게 친구를 신청한 적이 없다는 뜻이므로 친구 신청중 상태가 된다.
+				friendVO.setRelation("친구 신청중");			
+			}
+			mapper.changeRelation(friendVO);
+			
+			Alert.alertAndGo(response, "친구 신청을 완료했습니다.", "main");
+			
+		} else if (mode == 2) {
+			// 친구를 삭제한다.
+			mapper.deleteFriend(friendVO);
+			Alert.alertAndGo(response, "친구를 삭제했습니다.", "main");
 		}
-		mapper.changeRelation(friendVO);
-		
-		Alert.alertAndClose(response, "친구 신청을 완료했습니다.");
 		return "";
-	}
-	
-	@RequestMapping("deleteFriend")
-	public String deleteFriend(HttpServletRequest request, Model model, FriendVO friendVO, HttpServletResponse response) {
-		// mapper를 얻어온다.
-		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
-		
-		// 친구를 삭제한다.
-		mapper.deleteFriend(friendVO);
-		
-		Alert.alertAndClose(response, "친구를 삭제했습니다.");
-		return "";		
 	}
 	
 	@RequestMapping("myPage")
@@ -294,6 +304,8 @@ public class HomeController {
 	public String chat(HttpServletRequest request, Model model) {
 		// mapper를 얻어온다.
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		
 		
 		return "chat";
 	}	

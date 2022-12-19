@@ -47,6 +47,7 @@
 	}    
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 <body>
 <jsp:useBean id="date" class="java.util.Date"/>
@@ -64,6 +65,8 @@
 </header>
 <br/><br/><br/><br/>
 
+	현재 접속자 수: ${userCount}
+	누적 접속자 수: ${totalCount}
 	<c:if test="${id != null}">
 		<div align="center">
 			<input type="button" value="내 방 만들기" onclick="location.href='makeRoom'"/>&nbsp;&nbsp;&nbsp;
@@ -72,10 +75,29 @@
 			<input type="button" value="마이페이지" onclick="location.href='myPage?id=${id}'"/><br/>
 		</div>
 	</c:if>
+<br/><br/><br/>
 
+${wantF}
+<c:set var="wantF" value="${wantF.list}"/>
+<c:if test="${wantF != null}">
+	<div id="wantFModal" >
+		<c:forEach var="wantF" items="${wantF}">
+			<div style="border: 1px solid black; margin: 5px; padding: 5px;">
+				${wantF.mid} 님에게서 친구 신청이 왔습니다.	
+				수락하시겠습니가?
+				<input type="button" value="수락" onclick="location.href='friendOK?fid=${wantF.mid}&mid=${id}&mode=1'">
+				<input type="button" value="거절" onclick="location.href='friendOK?fid=${wantF.mid}&mid=${id}&mode=2'">
+				<br/>
+			</div>
+		</c:forEach>
+		<input type="button" onclick="modalClose()" value="창 닫기"> 		
+	</div>
+</c:if>
+	<br/><br/><br/><br/><br/>
+	
+	
 <footer>
 
-</footer>
 				<div class="col-sm-3" align="right" style="vertical-align: middle;">
 					<span>
 				   		<a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림">
@@ -93,6 +115,7 @@
 						</a>
 					</span>
 				</div>
+</footer>
 
 </body>
 </html>

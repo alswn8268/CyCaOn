@@ -31,6 +31,7 @@ public interface MyBatisDAO {
 	String getRel(FriendVO friendVO);
 	void deleteFriend(FriendVO friendVO);
 	ArrayList<FriendVO> getFriendList(String id);
+	ArrayList<FriendVO> whoWantsToBeFriend(String id);
 	
 	// chat
 	void goChat(ChatVO chatVO);

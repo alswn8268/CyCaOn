@@ -47,6 +47,7 @@
 	}    
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 <body>
 <jsp:useBean id="date" class="java.util.Date"/>
@@ -65,19 +66,17 @@
 	</div>
 </header>
 <c:set var="roomList" value="${roomList.list}"/>
-<div>
+<div align="center">
 	<table>
-		<thead>
-			<tr>
-				<th>방 제목</th>
-				<th>방장</th>
-			</tr>
-		</thead>
 		<tbody>
 			<tr>
 				<c:forEach var="roomVO" items="${roomList}" varStatus="i">
-					<td><a href="roomView?id=${roomVO.roomHost}">${roomVO.roomName}</a><br/></td>
-					<td>${roomVO.roomHost}</td>
+					<td>
+						<div style="padding: 10px; margin: 10px; border: 1px solid black">
+							방 제목: <a href="roomView?id=${roomVO.roomHost}" style="1px solid red;">${roomVO.roomName}</a><br/>
+							방장: <button onclick="openProfile('${roomVO.roomHost}', '${id}')">${roomVO.roomHost}</button>
+						</div>					
+					</td>
 					<c:if test="${i.count % 4 == 0}">
 							<tr style="border-color: transparent;"></tr>
 					</c:if>				
