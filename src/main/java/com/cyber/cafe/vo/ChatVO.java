@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ChatVO {
 
-	private int chatIdx;
+	private int chatRoomIdx;
 	private String chatContent;
 	private Date chatTime;
 	private String chatNickname;
@@ -13,20 +13,20 @@ public class ChatVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChatVO(int chatIdx, String chatRoomName, String chatContent, Date chatTime, String chatNickname) {
+	public ChatVO(int chatRoomIdx, String chatContent, Date chatTime, String chatNickname) {
 		super();
-		this.chatIdx = chatIdx;
+		this.chatRoomIdx = chatRoomIdx;
 		this.chatContent = chatContent;
 		this.chatTime = chatTime;
 		this.chatNickname = chatNickname;
 	}
 
-	public int getChatIdx() {
-		return chatIdx;
+	public int getChatRoomIdx() {
+		return chatRoomIdx;
 	}
 
-	public void setChatIdx(int chatIdx) {
-		this.chatIdx = chatIdx;
+	public void setChatRoomIdx(int chatRoomIdx) {
+		this.chatRoomIdx = chatRoomIdx;
 	}
 
 	public String getChatContent() {
@@ -55,9 +55,10 @@ public class ChatVO {
 
 	@Override
 	public String toString() {
-		return "ChatVO [chatIdx=" + chatIdx + ", chatContent=" + chatContent + ", chatTime=" + chatTime
+		return "ChatVO [chatRoomIdx=" + chatRoomIdx + ", chatContent=" + chatContent + ", chatTime=" + chatTime
 				+ ", chatNickname=" + chatNickname + "]";
 	}
 
+	
 	
 }

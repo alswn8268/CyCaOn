@@ -1,5 +1,6 @@
 package com.cyber.cafe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cyber.cafe.dao.MyBatisDAO;
+import com.cyber.cafe.vo.ChatList;
 import com.cyber.cafe.vo.ChatVO;
 import com.cyber.cafe.vo.FriendList;
 import com.cyber.cafe.vo.FriendVO;
@@ -46,8 +48,8 @@ public class HomeController {
 		// 이미 생성된 방이 있는지 확인한다.
 		
 		// 현재 로그인한 사람 수를 받아서 넘겨준다.
-		model.addAttribute("userCount", new Listener().getUserCount());
-		model.addAttribute("totalCount", new Listener().getTotalCount());
+//		model.addAttribute("userCount", new Listener().getUserCount());
+//		model.addAttribute("totalCount", new Listener().getTotalCount());
 		model.addAttribute("wantF", request.getParameter("wantF"));	
 		return "main";
 	}
@@ -77,7 +79,11 @@ public class HomeController {
 			AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
 			FriendList wantF = ctx.getBean("friendList", FriendList.class);
 			wantF.setList(mapper.whoWantsToBeFriend(dbvo.getId()));
+			
+			System.out.println("친구 원함 " +wantF);
+			
 			model.addAttribute("wantF", wantF);			
+			session.setAttribute("wantF", wantF);			
 			
 			// 메인 페이지로 돌아간다.
 			return "redirect:main";
@@ -169,8 +175,9 @@ public class HomeController {
 		model.addAttribute("roomVO", roomVO);
 		
 		// 테마를 얻어온다.
+
 		
-		
+		// 얻어온 세션 정보와 
 		
 		
 		// 현재 방을 제외한 다른 방 목록을 얻어와서 넘겨준다.
@@ -299,29 +306,53 @@ public class HomeController {
 		
 		return "myPageView";
 	}
-	
-	@RequestMapping("chat")
-	public String chat(HttpServletRequest request, Model model) {
-		// mapper를 얻어온다.
-		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
-		
-		
-		
-		return "chat";
-	}	
 		
 	@ResponseBody
 	@RequestMapping("goChat")
 	public String goChat(HttpServletRequest request, Model model, ChatVO chatVO) {
 		// mapper를 얻어온다.
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
-
-		// 채팅 내용과 닉네임을 얻어와 Chat 테이블에 입력한다.
+		
+		// 방 idx, 채팅 내용과 닉네임을 얻어와 Chat 테이블에 입력한다.
 		mapper.goChat(chatVO);
 		
+		// 같은 방의 채팅 목록을 불러온다.
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+//		ChatList chatList = ctx.getBean("chatList",ChatList.class);
+//		chatList.setList(mapper.getChatList(chatVO.getChatRoomIdx()));
+
+		ArrayList<ChatVO> list = mapper.getChatList(chatVO.getChatRoomIdx());
+		System.out.println("여기입니다" + list);
 		
+		// 불러온 데이터를 ajax로 main.js의 goChat 함수에 넣어준다.
+		StringBuffer result = new StringBuffer();
+
+		result.append("{\"result\": ["); // json 시작
+//		데이터의 개수만큼 반복하며 json 형태의 문자열을 만든다.
 		
-		
-		return "";
+		for (ChatVO vo : list) {
+			result.append("[{\"value\": \"" + vo.getChatNickname() + "\"},");
+			result.append("{\"value\": \"" + vo.getChatContent() + "\"},");
+			result.append("{\"value\": \"" + vo.getChatTime() + "\"}]");
+		}
+		result.append("]}");
+
+		return result.toString(); 
 	}
+	
+	@RequestMapping("changeInfo")	
+	public String goChat(HttpServletRequest request, Model model, MemberVO memberVO) {
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 정보를 수정한다.
+		mapper.changeInfo(memberVO);
+	
+		// 다시 마이페이지로 돌아가기 위해 id를 넘겨준다.
+		model.addAttribute("id", memberVO.getId());
+		return "redirect:myPage";
+	}	
+	
+	
+	
 }

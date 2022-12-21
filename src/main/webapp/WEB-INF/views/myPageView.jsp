@@ -69,9 +69,23 @@
 <div>
 	투두 리스트: 
 	<div class="todolist">
-		<input type="checkbox"> 밥먹기
-		<input type="checkbox"> 놀기
-		<input type="checkbox"> 자기
+		<table style="border: 1px solid black">
+			<tr>
+				<td>
+					<input type="checkbox"> 밥먹기				
+				</td>
+			</tr>
+			<tr>
+				<td>		
+					<input type="checkbox"> 놀기
+				</td>
+			</tr>
+			<tr>
+			<td>
+				<input type="checkbox"> 자기
+			</td>
+			</tr>
+		</table>
 	</div>	
 </div>
 <br/><br/><br/><br/><br/>
@@ -94,18 +108,20 @@
 	<table>
 		<tr>
 			<th>아이디</th>
-			<td>${memberVO.id}</td>
+			<td>${memberVO.id}
+				<input type="hidden" id="id" name="id" value="${memberVO.id}">
+			</td>
 		</tr>
 		<tr>
 			<th>닉네임</th>
 			<td>
-				<input type="text" value="${memberVO.nickname}">
+				<input type="text" id="nickname" name="nickname" value="${memberVO.nickname}">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td>
-				<input type="text" value="${memberVO.password}">			
+				<input type="text" id="password" name="password" value="${memberVO.password}">			
 			</td>
 		</tr>
 		<tr>
@@ -114,7 +130,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" onclick="" value="정보 수정">
+				<input type="button" onclick="changeInfo()" value="정보 수정">
 			</td>
 		</tr>
 	</table>

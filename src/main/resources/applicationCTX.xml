@@ -20,5 +20,7 @@
 
 	<!-- ChatVO 클래스의 bean을 만든다. -->
 	<bean id="chatVO" class="com.cyber.cafe.vo.ChatVO"/>
+	<!-- ChatList 클래스의 bean을 만든다. -->
+	<bean id="chatList" class="com.cyber.cafe.vo.ChatList"/>
 
 </beans>

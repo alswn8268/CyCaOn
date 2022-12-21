@@ -3,7 +3,11 @@
 <mapper namespace="com.cyber.cafe.dao.MyBatisDAO">
 
 	<insert id="goChat" parameterType="ct_vo">
-		insert into chat (chatroomidx, chatnickname, chatcontent) values (chat_chatroomidx_seq.nextval, #{chatNickname}, #{chatContent})
+		insert into chat (chatroomidx, chatnickname, chatcontent) values (#{chatRoomIdx}, #{chatNickname}, #{chatContent})
 	</insert>
+	
+	<select id="getChatList" parameterType="int" resultType="ct_vo">
+		select * from chat where chatroomidx = #{chatRoomIdx}
+	</select>
 	
 </mapper>

@@ -38,5 +38,13 @@
 			) where rnum >= #{startNo} 		
 		]]>
 	 </select>	
+	 
+	 <insert id="insertSessionInfo" parameterType="com.cyber.cafe.vo.NowRoomVO">
+	 	insert into nowroom (id, roomidx, sessioninfo) values (#{id}, #{roomIdx}, #{sessionInfo})
+	 </insert>
+	
+	<delete id="deleteSessionInfo" parameterType="String">
+		delete from nowroom where sessioninfo = ${id}
+	</delete>
 	
 </mapper>

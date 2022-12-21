@@ -10,6 +10,8 @@
 		select * from member where id = #{id}
 	</select>
 
-	
+	<update id="changeInfo" parameterType="mb_vo">
+		update member set password=#{password}, nickname = #{nickname} where id=#{id}
+	</update>
 
 </mapper>

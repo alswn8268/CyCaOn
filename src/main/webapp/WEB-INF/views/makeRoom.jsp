@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="js/main.js"></script>
 </head>
 <body>
 <header>
@@ -34,8 +35,11 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="checkbox">
-						<input type="password" placeholder="비밀번호를 입력해주세요" name="roomPassword">
+						<select id="chkpwd" onchange="isPwd()">
+							<option selected>없음</option>
+							<option>있음</option>
+						</select>
+						<input type="password" id="roompwd" style="display: none;" placeholder="비밀번호를 입력해주세요" name="roomPassword">
 					</td>
 				</tr>
 				<tr>

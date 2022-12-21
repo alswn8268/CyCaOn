@@ -77,7 +77,6 @@
 	</c:if>
 <br/><br/><br/>
 
-${wantF}
 <c:set var="wantF" value="${wantF.list}"/>
 <c:if test="${wantF != null}">
 	<div id="wantFModal" >

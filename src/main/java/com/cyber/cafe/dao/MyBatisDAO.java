@@ -7,6 +7,7 @@ import com.cyber.cafe.vo.ChatVO;
 import com.cyber.cafe.vo.FriendList;
 import com.cyber.cafe.vo.FriendVO;
 import com.cyber.cafe.vo.MemberVO;
+import com.cyber.cafe.vo.NowRoomVO;
 import com.cyber.cafe.vo.RoomVO;
 
 public interface MyBatisDAO {
@@ -14,6 +15,7 @@ public interface MyBatisDAO {
 	// member
 	void joinmember(MemberVO memberVO);
 	MemberVO getId(String id);
+	void changeInfo(MemberVO memberVO);
 
 	// room
 	void makeNewRoom(RoomVO roomVO);
@@ -23,6 +25,8 @@ public interface MyBatisDAO {
 	ArrayList<RoomVO> getRooms(String roomHost);
 	int selectRoomCount();
 	ArrayList<RoomVO> getRoomList(HashMap<String, Integer> hmap);
+	void deleteSessionInfo(String id);
+	void insertSessionInfo(NowRoomVO nowRoomVO);
 
 	// friend
 	void friendRequest(FriendVO friendVO);
@@ -35,6 +39,7 @@ public interface MyBatisDAO {
 	
 	// chat
 	void goChat(ChatVO chatVO);
+	ArrayList<ChatVO> getChatList(int chatRoomIdx);
 	
 	
 }
