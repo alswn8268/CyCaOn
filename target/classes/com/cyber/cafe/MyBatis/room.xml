@@ -33,7 +33,7 @@
 	 	<![CDATA[
 			select * from (
 				select rownum rnum, TT.* from (
-					select * from room order by roomidx desc 
+					select * from room order by roomidx desc
 				) TT where rownum <= #{endNo}
 			) where rnum >= #{startNo} 		
 		]]>

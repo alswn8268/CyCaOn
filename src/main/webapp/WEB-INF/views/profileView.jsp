@@ -21,7 +21,7 @@
 			<table>
 				<tr>
 					<th>자기소개</th>
-					<td>한마디</td>
+					<td>${memberVO.introduce}</td>
 				</tr>
 				<tr>
 					<th>친구 상태</th>

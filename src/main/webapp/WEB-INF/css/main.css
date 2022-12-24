@@ -1,8 +1,8 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
 
 /* 공통 */
 * {
-	font-family: Pretendard;
+	font-family: 'Galmuri9 ' !important;
 }
 a {
 	color: black;
@@ -38,4 +38,29 @@ a {
 
 .clear {
 	clear:both;
+}
+
+.loginbtn:hover {
+	cursor: pointer;
+}
+
+input[type=text] {
+	background-color: transparent !important;
+	border-color: transparent !important; 
+}
+
+input[type=password] {
+	background-color: transparent !important;
+	border-color: transparent !important; 
+}
+
+
+.input_box {
+	background-color: transparent !important;
+	border-color: transparent !important;
+	z-index: 20;
+}
+
+.input_box:hover {
+	cursor: text;
 }

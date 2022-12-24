@@ -35,8 +35,12 @@ public class Listener implements HttpSessionListener{
 		
         System.out.printf("생성된 SESSIONID %s \n",  se.getSession().getId());
         System.out.printf("로그인된 사용자 수 : %d \n", nowCount);		
+
+        // mapper를 얻어온다.
+        //MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
         
-		
+       // mapper.setSessionInfo(se.getSession().getId());
+        
 		
 	}
 

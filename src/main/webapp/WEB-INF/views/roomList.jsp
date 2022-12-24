@@ -65,12 +65,12 @@
 		</c:if>
 	</div>
 </header>
-<c:set var="roomList" value="${roomList.list}"/>
+<c:set var="rList" value="${roomList.list}"/>
 <div align="center">
 	<table>
 		<tbody>
 			<tr>
-				<c:forEach var="roomVO" items="${roomList}" varStatus="i">
+				<c:forEach var="roomVO" items="${rList}" varStatus="i">
 					<td>
 						<div style="padding: 10px; margin: 10px; border: 1px solid black">
 							방 제목: <a href="roomView?id=${roomVO.roomHost}" style="1px solid red;">${roomVO.roomName}</a><br/>
@@ -82,6 +82,52 @@
 					</c:if>				
 				</c:forEach>
 			</tr>
+			<tr>
+				<td>
+
+					<c:if test="${roomList.currentPage > 1}">
+						<button class="btn btn-outline-primary" title="첫 번째 페이지로 이동합니다." onclick="location.href='?currentPage=1'">≪</button>							
+					</c:if>
+					<c:if test="${roomList.currentPage <= 1}">
+						<button class="btn btn-outline-secondary" disabled title="첫 번째 페이지입니다.">≪</button>						
+					</c:if>
+	
+					
+					<c:if test="${roomList.startPage > 1}">
+						<button class="btn btn-outline-primary" title=" 10페이지 앞으로 이동합니다." onclick="location.href='?currentPage=${roomList.startPage-1}&'">＜</button>							
+					</c:if>
+					<c:if test="${roomList.startPage <= 1}">
+						<button class="btn btn-outline-secondary" disabled title="첫 10페이지입니다.">＜</button>				
+					</c:if>
+													
+					
+					<c:forEach var="i" begin="${roomList.startPage}" end="${roomList.endPage}" step="1">
+						<c:if test="${roomList.currentPage == i}">
+							<input class="btn btn-outline-secondary" type="button" value="${i}" disabled/>	
+						</c:if>
+						<c:if test="${roomList.currentPage != i}">
+							<input class="btn btn-outline-primary" type="button" value="${i}" onclick="location.href='?currentPage=${i}'" value="${i}"/>	
+						</c:if>							
+					</c:forEach>
+	
+					
+					<c:if test="${roomList.endPage < roomList.totalPage}">
+						<button class="btn btn-outline-primary" title=" 10페이지 뒤로 이동합니다." onclick="location.href='?currentPage=${roomList.endPage+1}'">＞</button>								
+					</c:if>
+					<c:if test="${roomList.endPage >= roomList.totalPage}">
+						<button class="btn btn-outline-secondary" disabled title="마지막 10페이지입니다.">＞</button>							
+					</c:if>
+					
+					
+					<c:if test="${roomList.currentPage < roomList.totalPage}">
+						<button class="btn btn-outline-primary" title="마지막 페이지로 이동합니다." onclick="location.href='?currentPage=${roomList.totalPage}'">≫</button>								
+					</c:if>
+					<c:if test="${roomList.currentPage >= roomList.totalPage}">
+						<button class="btn btn-outline-secondary" disabled title="마지막 페이지입니다.">≫</button>						
+					</c:if>
+					
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -89,23 +135,23 @@
 <footer>
 
 </footer>
-				<div class="col-sm-3" align="right" style="vertical-align: middle;">
-					<span>
-				   		<a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림">
-				   			<img alt="facebook" src="images/icon-facebook.png">
-				   		</a>
-					</span>
-					<span>
-				    	<a href="#n" onclick="fn_sendFB('twitter');return false;" class="twitter" target="_self" title="트위터 새창열림">
-				   			<img alt="twitter" src="images/icon-twitter.png">
-				    	</a>
-					</span>
-					<span>
-						<a href="#n" id="btnKakao" onclick="fn_sendFB('kakaotalk');return false;" class="kakaotalk" target="_self" title="카카오톡 새창열림">
-				   			<img alt="kakao" src="images/icon-kakao.png">
-						</a>
-					</span>
-				</div>
+	<div class="col-sm-3" align="right" style="vertical-align: middle;">
+		<span>
+	   		<a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림">
+	   			<img alt="facebook" src="images/icon-facebook.png">
+	   		</a>
+		</span>
+		<span>
+	    	<a href="#n" onclick="fn_sendFB('twitter');return false;" class="twitter" target="_self" title="트위터 새창열림">
+	   			<img alt="twitter" src="images/icon-twitter.png">
+	    	</a>
+		</span>
+		<span>
+			<a href="#n" id="btnKakao" onclick="fn_sendFB('kakaotalk');return false;" class="kakaotalk" target="_self" title="카카오톡 새창열림">
+	   			<img alt="kakao" src="images/icon-kakao.png">
+			</a>
+		</span>
+	</div>
 
 </body>
 </html>

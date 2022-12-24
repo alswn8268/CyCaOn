@@ -26,12 +26,16 @@ import com.cyber.cafe.vo.FriendVO;
 import com.cyber.cafe.vo.MemberVO;
 import com.cyber.cafe.vo.RoomList;
 import com.cyber.cafe.vo.RoomVO;
+import com.cyber.cafe.vo.TodoList;
+import com.cyber.cafe.vo.TodoVO;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	public SqlSession sqlSession;
+	
+	@Autowired
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -315,6 +319,7 @@ public class HomeController {
 		
 		// 방 idx, 채팅 내용과 닉네임을 얻어와 Chat 테이블에 입력한다.
 		mapper.goChat(chatVO);
+		System.out.println("저기요"+chatVO);
 		
 		// 같은 방의 채팅 목록을 불러온다.
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
@@ -338,7 +343,8 @@ public class HomeController {
 		result.append("]}");
 
 		return result.toString(); 
-	}
+	}	
+	
 	
 	@RequestMapping("changeInfo")	
 	public String goChat(HttpServletRequest request, Model model, MemberVO memberVO) {
@@ -353,6 +359,20 @@ public class HomeController {
 		return "redirect:myPage";
 	}	
 	
-	
-	
+	@RequestMapping("addTodo")
+	public String addTodo(HttpServletRequest request, Model model, TodoVO todoVO) {
+		
+		// mapper를 얻어온다.
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
+		
+		// 투두 리스트에 추가한다.
+		mapper.addTodo(todoVO);
+		
+		// 투두 리스트를 모두 불러온다.
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+		TodoList todoList = ctx.getBean("todoList", TodoList.class);
+		todoList.setList(mapper.getTodo(todoVO.getId()));
+		
+		return todoList.toString();
+	}
 }

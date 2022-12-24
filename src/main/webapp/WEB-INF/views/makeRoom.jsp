@@ -39,7 +39,7 @@
 							<option selected>없음</option>
 							<option>있음</option>
 						</select>
-						<input type="password" id="roompwd" style="display: none;" placeholder="비밀번호를 입력해주세요" name="roomPassword">
+						<div id="roompwdinput"></div>
 					</td>
 				</tr>
 				<tr>

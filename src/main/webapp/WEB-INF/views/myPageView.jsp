@@ -69,23 +69,14 @@
 <div>
 	투두 리스트: 
 	<div class="todolist">
-		<table style="border: 1px solid black">
+		<table style="border: 1px solid black" id="toDoTable">
 			<tr>
 				<td>
-					<input type="checkbox"> 밥먹기				
+					<input type="checkbox"> ${todoVO.todo} <input type="button" value="-" onclose="deleteTodo()">
 				</td>
-			</tr>
-			<tr>
-				<td>		
-					<input type="checkbox"> 놀기
-				</td>
-			</tr>
-			<tr>
-			<td>
-				<input type="checkbox"> 자기
-			</td>
 			</tr>
 		</table>
+		<input type="text" id="todo" placeholder="투두 리스트를 추가해보세요~"><input type="button" value="추가" onclick="addTodo()"> 
 	</div>	
 </div>
 <br/><br/><br/><br/><br/>
@@ -129,6 +120,10 @@
 			<td>${memberVO.sdate}</td>
 		</tr>
 		<tr>
+			<th>자기소개</th>
+			<td><input type="text" id="introduce" name="introduce" value="${memberVO.introduce}"></td>		
+		</tr>
+		<tr>
 			<td colspan="2">
 				<input type="button" onclick="changeInfo()" value="정보 수정">
 			</td>
@@ -140,23 +135,23 @@
 <footer>
 
 </footer>
-				<div class="col-sm-3" align="right" style="vertical-align: middle;">
-					<span>
-				   		<a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림">
-				   			<img alt="facebook" src="images/icon-facebook.png">
-				   		</a>
-					</span>
-					<span>
-				    	<a href="#n" onclick="fn_sendFB('twitter');return false;" class="twitter" target="_self" title="트위터 새창열림">
-				   			<img alt="twitter" src="images/icon-twitter.png">
-				    	</a>
-					</span>
-					<span>
-						<a href="#n" id="btnKakao" onclick="fn_sendFB('kakaotalk');return false;" class="kakaotalk" target="_self" title="카카오톡 새창열림">
-				   			<img alt="kakao" src="images/icon-kakao.png">
-						</a>
-					</span>
-				</div>
+	<div class="col-sm-3" align="right" style="vertical-align: middle;">
+		<span>
+	   		<a href="#n" onclick="fn_sendFB('facebook');return false;" class="facebook" target="_self" title="페이스북 새창열림">
+	   			<img alt="facebook" src="images/icon-facebook.png">
+	   		</a>
+		</span>
+		<span>
+	    	<a href="#n" onclick="fn_sendFB('twitter');return false;" class="twitter" target="_self" title="트위터 새창열림">
+	   			<img alt="twitter" src="images/icon-twitter.png">
+	    	</a>
+		</span>
+		<span>
+			<a href="#n" id="btnKakao" onclick="fn_sendFB('kakaotalk');return false;" class="kakaotalk" target="_self" title="카카오톡 새창열림">
+	   			<img alt="kakao" src="images/icon-kakao.png">
+			</a>
+		</span>
+	</div>
 
 </body>
 </html>

@@ -8,17 +8,19 @@ public class MemberVO {
 	private String password;
 	private String nickname;
 	private Date sdate;
+	private String introduce;
 	
 	public MemberVO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MemberVO(String id, String password, String nickname, Date sdate) {
+	public MemberVO(String id, String password, String nickname, Date sdate, String introduce) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.nickname = nickname;
 		this.sdate = sdate;
+		this.introduce = introduce;
 	}
 
 	public String getId() {
@@ -53,11 +55,19 @@ public class MemberVO {
 		this.sdate = sdate;
 	}
 
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberVO [id=" + id + ", password=" + password + ", nickname=" + nickname + ", sdate=" + sdate + "]";
+		return "MemberVO [id=" + id + ", password=" + password + ", nickname=" + nickname + ", sdate=" + sdate
+				+ ", introduce=" + introduce + "]";
 	}
-	
-	
+
 	
 }

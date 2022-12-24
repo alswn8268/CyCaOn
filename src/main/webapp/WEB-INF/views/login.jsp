@@ -17,36 +17,48 @@
 </head>
 <body>
 <header>
-	<div>
+<!-- 	<div>
 		<input type="button" value="메인으로" onclick="location.href='main'">
-	</div>
+	</div> -->
 </header>
 
-	<div style="margin: 20px; padding: 20px;" align="center">
-		<form action="loginOK">
+	<div style="margin-top: 73px; text-align: center;">
+		<div>
+			<img alt="logo" src="images/img_title.png" style="width: 258px; height: 226px;">
+		</div>	
+	</div>
+	
+	<div style="margin-top: 30px; margin-bottom: 29px;" align="center">	
+		<form action="loginOK" id="frm">
 			<table>
 				<tr>
-					<th>아이디</th>
 					<td>
+						<img src="images/img_loginBox.png" style="margin-bottom: 6px; width: 278px; height: 61px; position: relative; z-index: 1;" class="input_box">
 						<input type="text" placeholder="아이디를 입력해주세요" name="id">
 					</td>
 				</tr>
 				<tr>
-					<th>비밀번호</th>
 					<td>
+						<img src="images/img_loginBox.png" style="margin-bottom: 12px; width: 278px; height: 61px;  position: relative; " class="input_box">
 						<input type="password" placeholder="비밀번호를 입력해주세요" name="password">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="button" value="회원가입" onclick="location.href='joinmember'">
-						<input type="submit" value="로그인">
+						<img src="images/btn_login.png" onclick="document.getElementById('frm').submit()" class="loginbtn" style="width: 278px; height: 69px;">
 					</td>			
 				</tr>
 			</table>
 		</form>
 	</div>
-
+	<div align="center" style="margin-bottom: 25px;">
+		<img src="images/img_kakao.png" style="margin-right: 16px;">
+		<img src="images/img_naver.png" style="margin-right: 16px;">
+		<img src="images/img_google.png">
+	</div>
+	<div align="center" style="padding-bottom: 42px;">
+		<a href="joinmember" style="color: #c1c1d3;">회원가입</a>		
+	</div>
 <footer>
 
 </footer>
