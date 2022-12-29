@@ -55,7 +55,6 @@
 <header>
 	<div>
 		<c:if test="${id != null}">
-			<b>${nickname}</b>님 안녕하세요! 오늘은 ${date}입니다.
 			<br/><b>${nickname}</b> 님의 마이페이지입니다.
 			<input type="button" value="로그아웃" onclick="location.href='logout'">
 			<input type="button" value="메인" onclick="location.href='main'">
@@ -117,7 +116,9 @@
 		</tr>
 		<tr>
 			<th>가입일</th>
-			<td>${memberVO.sdate}</td>
+			<td>
+				<fmt:formatDate value="${memberVO.sdate}" pattern="yy.MM.dd(E)"/>
+			</td>
 		</tr>
 		<tr>
 			<th>자기소개</th>

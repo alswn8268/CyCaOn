@@ -59,7 +59,7 @@
 			<br/><b>${roomVO.roomName}</b> 방입니다.
 			<input type="button" value="로그아웃" onclick="location.href='logout'">
 			<input type="button" value="메인" onclick="location.href='main'">
-			<audio autoplay controls loop preload="auto" src="https://youtu.be/Qt6rBTbf58I"></audio>			
+			<iframe width="100" src="https://www.youtube.com/embed/Qt6rBTbf58I?autoplay=1&loop=1&controls=0" sandbox="allow-forms allow-scripts allow-same-origin"></iframe>
 		</c:if>
 		<c:if test="${id == null}">
 			<script type="text/javascript">
@@ -95,19 +95,12 @@
 	</div>
 	
 	<div class="chat" style="overflow: auto; height: 300px;">
-		닉네임<br/>
-		채팅내용 (채팅시간)<br/>
-		
-		닉네임<br/>
-		채팅내용 (채팅시간)<br/>
-		
-		닉네임<br/>
-		채팅내용 (채팅시간)<br/>
-				
-
+		<table id="chatTable">
+		</table>
 		<div style="vertical-align: bottom;">
 			<input type="hidden" id="roomIdx" value="${roomVO.roomIdx}">
-			<input type="text" name="chatContent" placeholder="채팅 내용을 입력하세요."/><input type="button" onclick="goChat('${nickname}')" value="전송"/>
+			<input type="text" name="chatContent" placeholder="채팅 내용을 입력하세요."/>
+			<input type="button" onclick="goChat('${nickname}')" value="전송"/>
 		</div>
 
 	</div>

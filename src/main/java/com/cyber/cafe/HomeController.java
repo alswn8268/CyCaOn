@@ -1,5 +1,6 @@
 package com.cyber.cafe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -181,7 +182,7 @@ public class HomeController {
 		// 테마를 얻어온다.
 
 		
-		// 얻어온 세션 정보와 
+		// 얻어온 세션 정보와 id, 방 번호를 DB에 저장한다.
 		
 		
 		// 현재 방을 제외한 다른 방 목록을 얻어와서 넘겨준다.
@@ -312,7 +313,7 @@ public class HomeController {
 	}
 		
 	@ResponseBody
-	@RequestMapping("goChat")
+	@RequestMapping(value="/goChat", produces="application/text; charset=utf8")
 	public String goChat(HttpServletRequest request, Model model, ChatVO chatVO) {
 		// mapper를 얻어온다.
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);		
@@ -323,11 +324,8 @@ public class HomeController {
 		
 		// 같은 방의 채팅 목록을 불러온다.
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
-//		ChatList chatList = ctx.getBean("chatList",ChatList.class);
-//		chatList.setList(mapper.getChatList(chatVO.getChatRoomIdx()));
-
-		ArrayList<ChatVO> list = mapper.getChatList(chatVO.getChatRoomIdx());
-		System.out.println("여기입니다" + list);
+		ChatList chatList = ctx.getBean("chatList",ChatList.class);
+		chatList.setList(mapper.getChatList(chatVO.getChatRoomIdx()));
 		
 		// 불러온 데이터를 ajax로 main.js의 goChat 함수에 넣어준다.
 		StringBuffer result = new StringBuffer();
@@ -335,10 +333,12 @@ public class HomeController {
 		result.append("{\"result\": ["); // json 시작
 //		데이터의 개수만큼 반복하며 json 형태의 문자열을 만든다.
 		
-		for (ChatVO vo : list) {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		
+		for (ChatVO vo : chatList.getList()) {
 			result.append("[{\"value\": \"" + vo.getChatNickname() + "\"},");
 			result.append("{\"value\": \"" + vo.getChatContent() + "\"},");
-			result.append("{\"value\": \"" + vo.getChatTime() + "\"}]");
+			result.append("{\"value\": \"" + sdf.format(vo.getChatTime()) + "\"}]");
 		}
 		result.append("]}");
 

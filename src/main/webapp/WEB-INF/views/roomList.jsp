@@ -73,7 +73,7 @@
 				<c:forEach var="roomVO" items="${rList}" varStatus="i">
 					<td>
 						<div style="padding: 10px; margin: 10px; border: 1px solid black">
-							방 제목: <a href="roomView?id=${roomVO.roomHost}" style="1px solid red;">${roomVO.roomName}</a><br/>
+							방 제목: <a href="#" onclick="roomView('${roomVO.roomHost}')" style="border:1px solid red;">${roomVO.roomName}</a><br/>
 							방장: <button onclick="openProfile('${roomVO.roomHost}', '${id}')">${roomVO.roomHost}</button>
 						</div>					
 					</td>

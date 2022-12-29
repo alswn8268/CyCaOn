@@ -3,7 +3,12 @@
 <mapper namespace="com.cyber.cafe.dao.MyBatisDAO">
 
 	<insert id="makeNewRoom" parameterType="rm_vo">
-		insert into room (roomidx, roomname, roomhost, roompassword, roomtheme) values (room_roomidx_seq.nextval, #{roomName}, #{roomHost},#{roomPassword}, #{roomTheme})
+		<if test="roomPassword != null">
+			insert into room (roomidx, roomname, roomhost, roompassword, roomtheme) values (room_roomidx_seq.nextval, #{roomName}, #{roomHost},#{roomPassword}, #{roomTheme})	
+		</if>
+		<if test="roomPassword == null">
+			insert into room (roomidx, roomname, roomhost, roomtheme) values (room_roomidx_seq.nextval, #{roomName}, #{roomHost}, #{roomTheme})	
+		</if>
 	</insert>
 	
 	<select id="getRoomInfo" parameterType="String" resultType="rm_vo">

@@ -7,7 +7,7 @@
 	</insert>
 	
 	<select id="getChatList" parameterType="int" resultType="ct_vo">
-		select * from chat where chatroomidx = #{chatRoomIdx}
+		select * from chat where chatroomidx = #{chatRoomIdx} order by chattime desc;
 	</select>
 	
 </mapper>

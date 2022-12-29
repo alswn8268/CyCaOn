@@ -8,6 +8,8 @@ function openProfile(fid, mid) {
 function goChat(nickname) {
 	let chatContent = document.getElementsByName('chatContent')[0].value;
 	let roomIdx = document.getElementById('roomIdx').value;
+	let tbody = document.getElementById('chatTable');
+	tbody.innerHTML = '';
 	
 	$.ajax({
 		type: 'POST',
@@ -22,29 +24,20 @@ function goChat(nickname) {
 	
 			let object = eval('(' + res + ')');
 			let result = object.result;
-			console.log(result);			
-			
-//
-//			// 서블릿에서 수신된 데이터를 출력하기 위해 <tbody> 태그를 얻어온다.
-//			let tbody = document.getElementById('ajaxTable');
-//			// 새로 검색되는 데이터가 표시되어야 하므로 이전에 <tbody> 태그에 들어있던 내용은 지운다.
-//			tbody.innerHTML = '';
-//			
-//			// 데이터의 개수만큼 반복하며 <tbody>에 행을 만들어 추가한다.
-//			for (let i=0; i<result.length; i++) {
-//				// <tbody>에 넣어줄 행을 만든다.
-//				let row = tbody.insertRow(i);
-//				// 한 행에 출력할 열의 개수만큼 반복하며 행에 열을 추가한다.
-//				for (let j=0; j<result[i].length; j++) {
-//					// 행에 넣어줄 열을 만든다.
-//					let cell = row.insertCell(j);
-//					// 열에 화면에 표시할 데이터를 넣어준다.
-//					cell.innerHTML = result[i][j].value;
-//				}
-//			}
+			console.log(result)
 			
 			
-			
+			for (let i=0; i<result.length; i++) {
+				let row = tbody.insertRow(i);
+				for (let j=0; j<result[i].length; j++) {
+					let cell = row.insertCell(j);
+					if (j==0) {
+						cell.innerHTML = result[i][j].value + '<br/>';						
+					} else {
+						cell.innerHTML = result[i][j].value;
+					}
+				}
+			}			
 			
 		},
 		error: e => {
@@ -102,4 +95,8 @@ function addTodo() {
 	
 }
 
+function roomView(roomHost) {
 
+	
+	location.href='roomView?id=' + roomHost;
+}
