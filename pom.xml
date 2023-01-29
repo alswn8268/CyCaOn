@@ -156,23 +156,23 @@
 		
 	<!-- ajax -->
 	<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.9.4</version>
-		</dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.9.4</version>
+	</dependency>
 
-		<dependency>
-		    <groupId>com.fasterxml.jackson.dataformat</groupId>
-		    <artifactId>jackson-dataformat-xml</artifactId>
-		    <version>2.9.4</version>
-		</dependency>
-		
-		<!-- json  java인스턴스를 JSN타입의 문자열로 변환해야하는 일 -->
-		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.8.2</version>
-		</dependency>	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.dataformat</groupId>
+	    <artifactId>jackson-dataformat-xml</artifactId>
+	    <version>2.9.4</version>
+	</dependency>
+	
+	<!-- gson  java인스턴스를 JSN타입의 문자열로 변환해야하는 일 -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>2.8.2</version>
+	</dependency>	
 
 	<!-- webListener -->		      
 	<dependency>
@@ -180,13 +180,12 @@
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>3.0.1</version>
 	</dependency>
-		      
-<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
-      <dependency>
-          <groupId>org.jsoup</groupId>
-          <artifactId>jsoup</artifactId>
-          <version>1.12.2</version>
-      </dependency>
+
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-websocket</artifactId>
+	    <version>5.0.7.RELEASE</version>
+	</dependency>
 		      
 	</dependencies>
     <build>
