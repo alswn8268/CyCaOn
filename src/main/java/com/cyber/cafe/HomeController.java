@@ -1,5 +1,6 @@
 package com.cyber.cafe;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +21,11 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cyber.cafe.dao.MyBatisDAO;
+import com.cyber.cafe.oauth.NaverLoginBO;
 import com.cyber.cafe.vo.ChatList;
 import com.cyber.cafe.vo.ChatVO;
 import com.cyber.cafe.vo.FriendList;
@@ -29,6 +35,7 @@ import com.cyber.cafe.vo.RoomList;
 import com.cyber.cafe.vo.RoomVO;
 import com.cyber.cafe.vo.TodoList;
 import com.cyber.cafe.vo.TodoVO;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Controller
 public class HomeController {
@@ -37,8 +44,16 @@ public class HomeController {
 	public SqlSession sqlSession;
 	
 	@Autowired
-	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+//	NaverLoginBO
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
 	@RequestMapping("/")
 	public String home() {
@@ -60,7 +75,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/login")
-	public String login() {
+	public String login(Model model, HttpSession session) {
+//		네이버 아이디로 인증 URL을 생성하기 위하여 naverLoginBO 클래스의 getAuthorizationUrl 메소드 호출
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		System.out.println("네이버: " + naverAuthUrl);
+		model.addAttribute("url", naverAuthUrl);		
 		return "login";
 	}
 	
@@ -375,4 +394,42 @@ public class HomeController {
 		
 		return todoList.toString();
 	}
+	
+//	네이버 로그인 성공시 callback 호출 메소드
+	@RequestMapping("/naverCallback")
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+		System.out.println("---------네이버 로그인 callback -----------");
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		
+//		로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken); //String 형식의 json 데이터
+		System.out.println("apiResult: " + apiResult);
+
+//		String 형식인 apiResult를 json 형태로 바꾼다.
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		
+//		데이터 파싱
+//		Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+//		nickname 파싱
+//		String nickname = (String)response_obj.get("nickname");
+		System.out.println("reponse_obj: " + response_obj);
+
+//		파싱 값 세션에 저장
+		session.setAttribute("sessionId",response_obj); //세션 생성
+		model.addAttribute("result", apiResult);
+		return "naverSuccess";
+	}
+	
+//	로그아웃 메소드
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) throws IOException {
+		System.out.println("네이버 logout");
+		session.invalidate();
+		return "redirect:login";
+	}
+	
 }

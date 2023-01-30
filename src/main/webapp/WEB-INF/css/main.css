@@ -33,7 +33,6 @@ a {
 	width:20%;
 	height: 35%;
 	background-color: gray;
-
 }
 
 .clear {
@@ -44,14 +43,15 @@ a {
 	cursor: pointer;
 }
 
-input[type=text] {
-	background-color: transparent !important;
-	border-color: transparent !important; 
-}
-
-input[type=password] {
-	background-color: transparent !important;
-	border-color: transparent !important; 
+input {
+	background-color:transparent;
+	position: absolute;
+	z-index: 10;
+	font-size: 20px;
+	margin: 0px;
+	display: inline;
+	width: 250px;
+	right: 843px;
 }
 
 
@@ -63,4 +63,55 @@ input[type=password] {
 
 .input_box:hover {
 	cursor: text;
+}
+
+#loginId {
+	width: 248px;
+	height: 50px;
+	background-color: transparent !important;
+	border-color: transparent !important; 	
+	top: 335px;	
+}
+
+#loginPassword {
+	width: 248px;
+	height: 50px;
+	background-color: transparent !important;
+	border-color: transparent !important; 		
+	top: 405px;	
+}
+input:focus {outline:none;}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-text-fill-color: #000;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+	-webkit-text-fill-color: #000;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.inputImg {
+	margin-bottom: 6px; 
+	width: 278px; 
+	height: 61px; 
+	position: relative;
+	z-index: 1;
+	text-align: center !important;
+	display: inline;
+}
+
+.loginBtnImg:hover {
+	cursor: pointer;
 }

@@ -30,7 +30,8 @@
 	
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<!-- <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/> --> <!-- 집 -->
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> <!-- 학원 -->
 		<beans:property name="username" value="c##orcl"/>
 		<beans:property name="password" value="8268"/>
 	</beans:bean>
@@ -46,7 +47,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.cyber.cafe" />
-		<!-- Ajax 주석문 허가 -->
+
+	<!-- Ajax 주석문 허가 -->
 	<mvc:annotation-driven/>
 	<!-- 스프링에서 처리할 수 없는 요청은 tomcat에 위임 -->
 	<mvc:default-servlet-handler/>
@@ -57,5 +59,8 @@
 	</websocket:handlers>
 	
 	<beans:bean id="websocketHandler" class="com.cyber.cafe.WebsocketHandler"/>	
+	
+	<!-- NaverLoginBO Class에 대한 Bean 설정 추가 -->
+ 	<beans:bean id="naverLoginBO" class="com.cyber.cafe.oauth.NaverLoginBO" />	
 	
 </beans:beans>

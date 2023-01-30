@@ -30,17 +30,17 @@
 	
 	<div style="margin-top: 30px; margin-bottom: 29px;" align="center">	
 		<form action="loginOK" id="frm">
-			<table>
+			<table style="width: 300px;">
 				<tr>
-					<td>
-						<img src="images/img_loginBox.png" style="margin-bottom: 6px; width: 278px; height: 61px; position: relative; z-index: 1;" class="input_box">
-						<input type="text" placeholder="아이디를 입력해주세요" name="id">
+					<td align="center">
+						<img src="images/img_loginBox.png" class="inputImg input_box">
+						<input type="text" id="loginId" placeholder="아이디를 입력해주세요" name="id">
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<img src="images/img_loginBox.png" style="margin-bottom: 12px; width: 278px; height: 61px;  position: relative; " class="input_box">
-						<input type="password" placeholder="비밀번호를 입력해주세요" name="password">
+					<td align="center">
+						<img src="images/img_loginBox.png" class="inputImg input_box">
+						<input type="password" id="loginPassword" placeholder="비밀번호를 입력해주세요" name="password">
 					</td>
 				</tr>
 				<tr>
@@ -52,9 +52,9 @@
 		</form>
 	</div>
 	<div align="center" style="margin-bottom: 25px;">
-		<img src="images/img_kakao.png" style="margin-right: 16px;">
-		<img src="images/img_naver.png" style="margin-right: 16px;">
-		<img src="images/img_google.png">
+		<img src="images/img_kakao.png" class="loginBtnImg" style="margin-right: 16px;">
+		<img src="images/img_naver.png" class="loginBtnImg" style="margin-right: 16px;" onclick="location.href='${url}'">
+		<img src="images/img_google.png" class="loginBtnImg">
 	</div>
 	<div align="center" style="padding-bottom: 42px;">
 		<a href="joinmember" style="color: #c1c1d3;">회원가입</a>		

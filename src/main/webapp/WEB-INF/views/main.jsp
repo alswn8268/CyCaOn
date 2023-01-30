@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	function fn_sendFB(sns) {
 	    var thisUrl = document.URL;
-	    var snsTitle = "Spring library";
+	    var snsTitle = "Study With Meow";
 	    if( sns == 'facebook' ) {
 	        var url = "http://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(thisUrl);
 	        window.open(url, "", "width=486, height=286");
@@ -34,7 +34,7 @@
 	            container: '#btnKakao', // HTML에서 작성한 ID값
 	            objectType: 'feed',
 	            content: {
-	            title: "Project CyCaOn", // 보여질 제목
+	            title: "Study With Meow", // 보여질 제목
 	            description: "집에서도 카페처럼! 랜선 카페에 어서 오세요~", // 보여질 설명
 	            imageUrl: thisUrl, // 콘텐츠 URL
 	            link: {
